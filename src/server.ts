@@ -1,7 +1,14 @@
 import fastify from 'fastify'
 import { registerEventsRoutes } from './events.routes'
+import {
+  serializerCompiler,
+  validatorCompiler,
+} from 'fastify-type-provider-zod'
 
 const app = fastify()
+
+app.setValidatorCompiler(validatorCompiler)
+app.setSerializerCompiler(serializerCompiler)
 
 registerEventsRoutes(app)
 
