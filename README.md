@@ -15,6 +15,7 @@
 ## 📝 Table of Contents <a name = "en"></a>
 
 - **[About](#about_en)**
+- **[Application Flow](#application_flow)**
 - **[Getting Started](#getting_started_en)**
 - **[Usage](#usage_en)**
 - **[Project Structure](#project_structure_en)**
@@ -23,6 +24,13 @@
 ## 📚 About <a name = "about_en"></a>
 
 Pass.in is an Event Management System that allows users to manage events, register attendees, and generate event badges. It provides a set of API endpoints for creating events, registering attendees, checking in attendees, and retrieving event and attendee information.
+
+## ➡ Application Flow <a name = "application_flow"></a>
+
+<p align="center">
+  <a href="" rel="noopener">
+ <img height="240" src=".github/app_flow.svg" alt="App flow"></a>
+</p>
 
 ## 🏁 Getting Started <a name = "getting_started_en"></a>
 
