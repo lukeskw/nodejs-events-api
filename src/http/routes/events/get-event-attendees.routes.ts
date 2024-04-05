@@ -16,6 +16,11 @@ export const getEventAttendees = async (app: FastifyInstance) => {
         querystring: z.object({
           query: z.string().nullish(),
           pageIndex: z.string().nullish().default('0').transform(Number),
+          itemsPerPage: z
+            .enum(['10', '20', '50'])
+            .nullish()
+            .default('10')
+            .transform(Number),
         }),
         response: {
           200: z.object({
@@ -29,43 +34,62 @@ export const getEventAttendees = async (app: FastifyInstance) => {
                 checkedInAt: z.date().nullable(),
               }),
             ),
+            total: z.number(),
           }),
         },
       },
     },
     async (request, reply) => {
       const { eventId } = request.params
-      const { pageIndex, query } = request.query
+      const { pageIndex, query, itemsPerPage } = request.query
 
-      const attendees = await prisma.attendee.findMany({
-        select: {
-          id: true,
-          ticketId: true,
-          name: true,
-          email: true,
-          createdAt: true,
-          checkIn: {
-            select: {
-              createdAt: true,
+      const [attendees, total] = await prisma.$transaction([
+        prisma.attendee.findMany({
+          select: {
+            id: true,
+            ticketId: true,
+            name: true,
+            email: true,
+            createdAt: true,
+            checkIn: {
+              select: {
+                createdAt: true,
+              },
             },
           },
-        },
-        where: query
-          ? {
-              eventId,
-              name: {
-                contains: query,
+          where: query
+            ? {
+                eventId,
+                name: {
+                  contains: query,
+                  mode: 'insensitive',
+                },
+              }
+            : {
+                eventId,
               },
-            }
-          : {
-              eventId,
-            },
-        take: 10,
-        skip: pageIndex * 10,
-        orderBy: {
-          createdAt: 'desc',
-        },
-      })
+          take: itemsPerPage,
+          skip: pageIndex * itemsPerPage,
+          orderBy: {
+            createdAt: 'asc',
+          },
+        }),
+        prisma.attendee.count({
+          where: query
+            ? {
+                eventId,
+                name: {
+                  contains: query,
+                  mode: 'insensitive',
+                },
+              }
+            : {
+                eventId,
+              },
+        }),
+      ])
+
+      await new Promise((resolve) => setTimeout(resolve, 1000))
 
       return reply.status(200).send({
         attendees: attendees.map((attendee) => {
@@ -78,6 +102,7 @@ export const getEventAttendees = async (app: FastifyInstance) => {
             checkedInAt: attendee.checkIn?.createdAt ?? null,
           }
         }),
+        total,
       })
     },
   )
