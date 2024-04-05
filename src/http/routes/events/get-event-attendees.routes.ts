@@ -22,6 +22,7 @@ export const getEventAttendees = async (app: FastifyInstance) => {
             attendees: z.array(
               z.object({
                 id: z.number(),
+                ticketId: z.string(),
                 name: z.string(),
                 email: z.string().email(),
                 createdAt: z.date(),
@@ -39,6 +40,7 @@ export const getEventAttendees = async (app: FastifyInstance) => {
       const attendees = await prisma.attendee.findMany({
         select: {
           id: true,
+          ticketId: true,
           name: true,
           email: true,
           createdAt: true,
@@ -69,6 +71,7 @@ export const getEventAttendees = async (app: FastifyInstance) => {
         attendees: attendees.map((attendee) => {
           return {
             id: attendee.id,
+            ticketId: attendee.ticketId,
             name: attendee.name,
             email: attendee.email,
             createdAt: attendee.createdAt,
