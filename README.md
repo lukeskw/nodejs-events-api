@@ -18,6 +18,7 @@
 - **[Application Flow](#application_flow)**
 - **[Getting Started](#getting_started_en)**
 - **[Usage](#usage_en)**
+- **[Requirements](#requirements)**
 - **[Project Structure](#project_structure_en)**
 - **[Technologies](#built_using_en)**
 
@@ -235,6 +236,27 @@ To use the application, you can utilize the following API endpoints:
 - Example response: `201 CREATED`
 
 </details>
+
+## 🔧 Requirements <a name = "requirements"></a>
+
+### Functional Requirements
+
+- The organizer must be able to register a new event;
+- The organizer must be able to view event details;
+- The organizer must be able to view the list of participants;
+- The participant must be able to register for an event;
+- The participant must be able to view their registration badge;
+- The participant must be able to check in at the event;
+
+### Non-Functional Requirements
+
+- Event check-in will be done through a QRCode;
+
+### Business Rules
+
+- A participant can only register for an event once;
+- A participant can only register for events with available spots;
+- A participant can only check in at an event once;
 
 ## 📁 Project Structure <a name = "project_structure_en"></a>
 
