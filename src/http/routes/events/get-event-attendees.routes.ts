@@ -89,7 +89,7 @@ export const getEventAttendees = async (app: FastifyInstance) => {
         }),
       ])
 
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await new Promise((resolve) => setTimeout(resolve, 500))
 
       return reply.status(200).send({
         attendees: attendees.map((attendee) => {
