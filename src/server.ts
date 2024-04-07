@@ -12,6 +12,7 @@ import {
   jsonSchemaTransform,
 } from 'fastify-type-provider-zod'
 import { errorHandler } from './error-handler'
+import { env } from './env'
 
 const app = fastify()
 
@@ -42,7 +43,7 @@ app.setSerializerCompiler(serializerCompiler)
 registerEventsRoutes(app)
 
 app.setErrorHandler(errorHandler)
-app.listen({ port: 3333, host: '0.0.0.0' }, (err, address) => {
+app.listen({ port: env.PORT, host: env.API_HOST }, (err, address) => {
   if (err) {
     app.log.error(err)
     process.exit(1)
