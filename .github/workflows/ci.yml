@@ -20,4 +20,14 @@ jobs:
           echo "hash=$HASH" >> $GITHUB_OUTPUT
 
       - name: Build docker image
-        run: docker build -t lucaspa123/passin-service:${{ steps.generate_hash.outputs.hash }} -f prod.Dockerfile .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/passin-service:${{ steps.generate_hash.outputs.hash }} -f prod.Dockerfile .
+
+      - name: Log into the container registry
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push image
+        run: |
+          docker push lucaspa123/passin-service:${{ steps.generate_hash.outputs.hash }}
