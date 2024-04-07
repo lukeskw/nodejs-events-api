@@ -9,7 +9,7 @@ services:
     ports:
       - 3003:3333
     environment:
-      - DATABASE_URL=postgresql://docker:docker@postgres:5432/events?schema=public
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public
       - API_BASE_URL=http://localhost:3333
       - NODE_ENV=development
       - PORT=3333
@@ -25,9 +25,10 @@ services:
     ports:
       - '5432:5432'
     environment:
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=events
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PORT=${POSTGRES_PORT}
     volumes:
       - events_pg_data:/bitnami/postgresql
     networks:
