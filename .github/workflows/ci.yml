@@ -30,4 +30,6 @@ jobs:
 
       - name: Push image
         run: |
-          docker push lucaspa123/passin-service:${{ steps.generate_hash.outputs.hash }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/passin-service:${{ steps.generate_hash.outputs.hash }}
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/passin-service:${{ steps.generate_hash.outputs.hash }} ${{ secrets.DOCKERHUB_USERNAME }}/passin-service:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/passin-service:latest
