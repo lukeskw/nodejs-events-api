@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: passin-deployment
+  labels:
+    app: passin
+
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: passin
+  template:
+    metadata:
+      labels:
+        app: passin
+    spec:
+      containers:
+        - name: passin
+          image: lucaspa123/passin-service:3e7200c
+          env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: db-connection
+                key: url
+          - name: API_BASE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: passin-env
+                key: url
+          ports:
+            - containerPort: 3333
+          resources:
+            requests:
+              cpu: 200m
+              memory: 512Mi
+            limits:
+              cpu: 400m
+              memory: 1024Mi
