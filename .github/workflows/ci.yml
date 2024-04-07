@@ -20,4 +20,4 @@ jobs:
           echo "hash=$HASH" >> $GITHUB_OUTPUT
 
       - name: Build docker image
-        run: docker build -t lucaspa123/passin-service:${{ steps.generate_hash.outputs.hash }} -f dev.Dockerfile .
+        run: docker build -t lucaspa123/passin-service:${{ steps.generate_hash.outputs.hash }} -f prod.Dockerfile .
