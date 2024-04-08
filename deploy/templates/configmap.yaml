@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: passin-env
 data:
-  url: "http://localhost:3333"
+  url: http://localhost:3333
