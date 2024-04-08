@@ -5,6 +5,7 @@ import { getEvent } from './http/routes/events/get-event.routes'
 import { getAttendeeBadge } from './http/routes/attendees/get-attendee-badge.routes'
 import { checkIn } from './http/routes/checkins/check-in'
 import { getEventAttendees } from './http/routes/events/get-event-attendees.routes'
+import { health } from './http/routes/health/health'
 
 export function registerEventsRoutes(app: FastifyInstance) {
   app.register(createEvents)
@@ -13,4 +14,5 @@ export function registerEventsRoutes(app: FastifyInstance) {
   app.register(getEventAttendees)
   app.register(getAttendeeBadge)
   app.register(checkIn)
+  app.register(health)
 }
