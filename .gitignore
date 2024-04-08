@@ -7,6 +7,4 @@ dist
 iac/*.tfvars
 iac/*.tfstate
 
-**/secret.yaml
-k8s/secret.yaml
 deploy.cross/apps/passin/repository.yaml
