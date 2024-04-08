@@ -33,3 +33,13 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/passin-service:${{ steps.generate_hash.outputs.hash }}
           docker tag ${{ secrets.DOCKERHUB_USERNAME }}/passin-service:${{ steps.generate_hash.outputs.hash }} ${{ secrets.DOCKERHUB_USERNAME }}/passin-service:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/passin-service:latest
+
+      - name: Update image tag
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          branch: main
+          valueFile: "deploy/values.yaml"
+          propertyPath: "image.tag"
+          value: "${{ steps.generate_hash.outputs.hash }}"
+          commitChange: true
+          message: "feat: Updated tag in values helm"
