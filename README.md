@@ -496,6 +496,13 @@ This part will be a set of commands to run to assure that the pipelines are runn
 
 </details>
 
+### New Relic Running
+
+<p align="center">
+  <a href="" rel="noopener">
+ <img src=".github/new_relic.png" alt="New relic"></a>
+</p>
+
 ### Useful Links
 
 - [Argo CD Docs](https://argo-cd.readthedocs.io/en/stable)
