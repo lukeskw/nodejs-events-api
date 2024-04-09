@@ -2,7 +2,7 @@ replicaCount: 5
 image:
   repository: lucaspa123/passin-service
   pullPolicy: Always
-  tag: 41a7702
+  tag: ef3bb22
   port: 3333
 imagePullSecrets: []
 nameOverride: ''
