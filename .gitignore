@@ -6,5 +6,8 @@ dist
 
 iac/*.tfvars
 iac/*.tfstate
+iac/*.tfstate.backup
+**/.terraform/*
+
 
 deploy.cross/apps/passin/repository.yaml
